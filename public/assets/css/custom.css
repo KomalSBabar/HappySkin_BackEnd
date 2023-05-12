@@ -1,0 +1,74 @@
+/* body{
+    background-color: rgb(95, 160, 100);
+}
+.container{
+    background-color: rgb(13, 14, 13);
+} */
+.navbar{
+    background: linear-gradient( to right ,white,rgb(159, 179, 245),rgb(77, 77, 243));
+}
+#body-left{
+    width: 25%;
+    border-color: rgb(58, 38, 235);
+    border-style: groove;
+    border-width: 0.5px;
+    display: block;
+ 
+}
+#body-right{
+    width: 75%;
+    background-color: rgb(245, 236, 236);
+ 
+}
+.body-content{
+    display: flex;
+
+}
+.container-c{
+    border-color: rgb(58, 38, 235);
+    border-style:groove;
+    border-width: 0.1px;
+}
+.bar-item{
+    /* background-color: rgb(58, 38, 235); */
+    /* border-style: groove;
+    border-width: 0.1px;  */
+  
+    display: block;
+}
+a:hover {
+  
+  background-color: rgb(204, 205, 250); 
+}
+.container_card_block{
+    display:flex;
+}
+.card{
+    display: flex;
+    margin: 25px;
+}
+
+
+/* login-admin-css */
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    }
+    
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+    }
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+    }
