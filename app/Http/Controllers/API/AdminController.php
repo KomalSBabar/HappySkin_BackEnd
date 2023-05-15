@@ -4,26 +4,30 @@ namespace App\Http\Controllers\API;
 
 
 use App\Http\Controllers\BaseController;
+use App\Models\billing_addres;
 use App\Models\Cards;
 use App\Models\Carts;
 use App\Models\Checkouts;
 use App\Models\checkout_address;
 use App\Models\c_checkout;
+use App\Models\Payments;
 use App\Models\Products;
 use App\Models\Shipping;
 use App\Models\Surveys;
 use App\Models\user;
 use Carbon\Carbon;
+use Exception;
+// use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use App\Models\Payments;
-// use App\Models\User;
-
-use Illuminate\Http\Request;
-
 // use     Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Stripe\Stripe;
+use Stripe\Customer;
+
+
 // use phpseclib3\Crypt\Hash;
 
 
@@ -367,6 +371,14 @@ public function search_pro(Request $request){
         return $this->sendResponse($succes, 'shipping data stored successfully');
     }
 
+    
+    // store shipping data in shipping database  api
+
+  
+
+
+
+
     // get cart_id api
     public function get_cart_id(Request $request)
     {
@@ -500,6 +512,88 @@ public function search_pro(Request $request){
     //     }
 
     // }
+
+
+      // create cusomer id of stripe api
+        public function create_cus_id(Request $request){
+          try{
+            $stripe = 
+            new \Stripe\StripeClient(
+              'sk_test_51J08tDJofjMgVsOdzxZs5Aqlf5A9riwPPwlxUTriC8YPiHvTjlCBoaMjgxiqdIVfvOMPcllgR9JY7EZlihr6TJHy00ixztHFtz'
+          
+            );
+            
+            // die($request-> stripe_token);     
+  
+            $info =  $stripe->customers->create([
+              'description' => 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
+              'email' => $request->email,
+              'source' => $request -> stripe_token
+
+            ]);
+  
+
+
+              // $info = $stripe;
+            //  $paymentDetails = $info->jsonSerialize();
+
+            // die($info);
+            // echo '<pre>'; print_r($info);
+            return $this->sendResponse($info, 'try block');
+          }
+          catch (Exception $e){
+              return $e->getmessage();
+          }
+
+
+        }
+
+// add customer id in user table
+public function cusid_user(Request $request){
+
+
+    $input = $request->all();
+    $store = user::where('id',$request->id)->update($input);
+    if($store !==  true){
+      return $this->sendResponse($store, 'updated unsuccesfully');
+   }
+   else{
+      return $this->sendResponse($store, 'update succesfully');
+   }
+}
+
+
+
+
+
+    // store data in billing address
+    public function billing_add(Request $request){
+    //   $validator = Validator::make($request->all(), [
+    //     'first_name' => 'required|string',
+    //     'last_name' => 'required|string',
+    //     'u_id' => 'required',
+    //     "c_id" => 'required',
+    //     'addres' => 'required|string|min:5',
+    //     'add_t' => 'required|min:5|string',
+    //     'city' => 'required|string|min:5',
+    //     'state' => 'required',
+    //     'city_code' => 'required|min:3',
+    //     'email' => 'required|string|min:5',
+    //     'phone_number' => 'required|integer|min:10'
+    // ]);
+
+    // if ($validator->fails()) {
+    //     return $this->sendError('Validation Error.', $validator->errors());
+    // }
+
+    $input = $request->all();
+    // print_r($input);
+    // print("<pre>");
+    // exit();
+    $ship = billing_addres::create($input);
+    $succes['first_name'] = $ship->first_name;
+    return $this->sendResponse($succes, 'shipping data stored successfully');
+    }
 
 
     // api to get order number

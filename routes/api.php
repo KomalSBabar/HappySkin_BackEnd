@@ -51,8 +51,11 @@ Route::get('survey_api',[AdminController::class,'survey_api']);
 Route::post('get_pro_byid',[AdminController::class,'get_pro_byid']);
 Route::post('addCheckoutAddress', [AdminController::class, 'addCheckoutAddress']);
 Route::get('user/{id}', [AdminController::class, 'user_show']);
+Route::post('cus', [AdminController::class, 'create_cus_id']);
+Route::post('billing_add', [AdminController::class, 'billing_add']);
+Route::post('cus_id', [AdminController::class, 'cusid_user']);
 
-   
+
 // Route::middleware('auth:api')->get('/', function (Request $request) {
 //     Route::post('update_password',[AdminController::class,'update_password']);
 //     // Route::post('login',[AdminController::class,'login']);
